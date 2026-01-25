@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data (large files - don't commit)
+data/raw/*.xlsx
+data/raw/*.csv
+data/raw/*.zip
+data/raw/gtfs_realtime/
+
+# Models
+models/*.pkl
+models/*.h5
+models/*.joblib
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
+.cache/
