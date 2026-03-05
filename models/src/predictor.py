@@ -16,7 +16,7 @@ system (chatbot backend or REST API). It:
       4. Returns a structured, serialisable result dict
 
 USAGE — as a Python module (imported by backend)
--------------------------------------------------
+-------------------------------------------------------------
       from predictor import DelayPredictor
 
       predictor = DelayPredictor()               # loads models once at startup
