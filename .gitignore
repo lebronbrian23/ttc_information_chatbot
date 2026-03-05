@@ -1,0 +1,66 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+.pytest_cache/
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data (large files - don't commit)
+data/raw/*.xlsx
+data/raw/*.csv
+data/raw/*.zip
+data/raw/gtfs_realtime/
+
+# Environment variables  - never commit secret info
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Temporary & cache files
+*.tmp
+*.cache
+.cache/
+
+
+# ML model artifacts — large binary files, do not commit
+models/trained/**/*.pkl
+models/trained/*/metrics.json
+models/trained/*/metrics_comparison.json
+models/trained/*/feature_importance.json
+models/trained/*/metadata.json
+models/**/*.pkl
+models/**/*.h5
+models/**/*.joblib
+
+# Runtime files — generated at runtime, meaningless to commit
+models/trained/ml_service.pid
+
+# Keep these — configuration files that should be in version control
+!models/trained/webhook_subscribers.json
+!models/trained/scheduler_config.json
+!models/trained/model_registry.json
