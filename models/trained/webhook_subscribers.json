@@ -1,5 +1,5 @@
 {
-    "subscribers": [
+    "subscribers": [
         {
             "name": "backend",
             "url": "http://localhost:3000/ml-updated",
@@ -12,3 +12,7 @@
         }
     ]
 }
+
+
+{
+ 
