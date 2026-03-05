@@ -167,9 +167,9 @@ class PredictRequest(BaseModel):
     """
     line: str = Field(..., example="Line 1")
     station: str = Field(..., example="BLOOR STATION")
-    code: str = Field(..., example="MUSAN",
-                      description="TTC delay/event code. Pass the most common "
-                      "code for this route if unknown at query time.")
+    code: Optional[str] = Field(default=None, example="MUSAN",
+                                description="TTC delay/event code. Optional - if not provided "
+                                "the predictor infers the most common code for this line.")
     hour: int = Field(..., ge=0, le=23, example=17)
     day_of_week: int = Field(..., ge=0, le=6, example=3,
                              description="0=Monday, 6=Sunday")
