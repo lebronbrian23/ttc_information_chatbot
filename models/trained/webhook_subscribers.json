@@ -1,0 +1,17 @@
+{
+    "subscribers": [
+        {
+            "name": "backend",
+            "url": "http://localhost:3000/ml-updated",
+            "enabled": false
+        },
+        {
+            "name": "nlp_service",
+            "url": "http://localhost:5000/ml-updated",
+            "enabled": false
+        }
+    ]
+}
+
+
+{

@@ -1,0 +1,7 @@
+{
+    "schedule": "weekly",
+    "day_of_week": "sunday",
+    "hour": 2,
+    "minute": 0,
+    "retrain_args": "--no-tune"
+}
