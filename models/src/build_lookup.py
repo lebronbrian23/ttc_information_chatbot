@@ -284,9 +284,10 @@ class RouteLookup:
 
     def _get_route_avg(self, line: str, station: str, code: str) -> float:
         try:
-            return float(
-                self._route_idx.loc[(line, station, code), "route_avg_delay"]
-            )
+            val = self._route_idx.loc[(line, station, code), "route_avg_delay"]
+            if hasattr(val, "iloc"):
+                return float(val.iloc[0])
+            return float(val)
         except KeyError:
             return self._global_avg
 
