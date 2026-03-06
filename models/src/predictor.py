@@ -333,31 +333,23 @@ class DelayPredictor:
         """
         stats = self._lookup._stats
         if stats.empty or "Code" not in stats.columns:
-            return {}
-
+            return {"__GLOBAL__": "MUSAN"}
+        index = {}
         # Count occurrences of each (Line, Code) combination and take the top
         # code per line. route_stats has one row per unique combination so
         # row count serves as a reasonable frequency proxy.
         try:
-            top_codes = (
-                stats[stats["Line"] != "__FALLBACK__"]
-                .groupby(["Line", "Code"])
-                .size()
-                .reset_index(name="count")
-                .sort_values("count", ascending=False)
-                .groupby("Line")
-                .first()
-                .reset_index()[["Line", "Code"]]
-            )
-            index = dict(zip(top_codes["Line"], top_codes["Code"]))
+            filtered = stats[stats["Line"] != "__FALLBACK__"].copy()
+            for line, group in filtered.groupby("Line"):
+                top_code = group["Code"].value_counts().index[0]
+                index[str(line)] = str(top_code)
         except Exception:
-            index = {}
+            pass
 
         # Global fallback: most common code across all lines
         try:
             global_top = (
-                stats[stats["Code"] != "__FALLBACK__"]
-                ["Code"]
+                stats[stats["Code"] != "__FALLBACK__"]["Code"]
                 .value_counts()
                 .index[0]
             )
