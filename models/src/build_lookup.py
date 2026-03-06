@@ -114,9 +114,9 @@ def build_lookup_table(data_path: Path, out_path: Path) -> pd.DataFrame:
     )
 
     # Merge all three into a single lookup table
-    stats = route_avg.copy()
-    stats = stats.merge(route_hour_avg, on=ROUTE_KEY, how="left")
-    stats = stats.merge(route_day_hour_avg, on=ROUTE_KEY, how="left")
+    stats = route_day_hour_avg.copy()
+    stats = stats.merge(route_hour_avg, on=ROUTE_HOUR_KEY, how="left")
+    stats = stats.merge(route_avg, on=ROUTE_KEY, how="left")
 
     # Global fallback values (used when a combination is unseen at inference)
     global_avg = float(train_df[TARGET_COL].mean())
