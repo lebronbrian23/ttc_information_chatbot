@@ -78,22 +78,18 @@ that doesn't happen than to miss one that does. Pass threshold= to predict().
 """
 
 from __future__ import annotations
-from registry import ModelRegistry
-from ph1_regression import load_regressor
-from ph1_regression import build_feature_matrix as reg_build_features
-from ph1_classification import load_classifier, make_binary_target
-from ph1_classification import build_feature_matrix as clf_build_features
 from build_lookup import RouteLookup, DEFAULT_OUT_PATH
-
-import logging
-from pathlib import Path
-from typing import Any, Dict, Optional
-
-import numpy as np
+from ph1_classification import build_feature_matrix as clf_build_features
+from ph1_classification import load_classifier, make_binary_target
+from ph1_regression import build_feature_matrix as reg_build_features
+from ph1_regression import load_regressor
+from registry import ModelRegistry
 import pandas as pd
-
-# Internal modules
+import numpy as np
+from typing import Any, Dict, Optional
+import logging
 import sys
+from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
