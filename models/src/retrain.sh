@@ -9,6 +9,7 @@
 #   4. Promote new versions to active (triggers service restart + notifications)
 #
 # Repo path:  models/src/retrain.sh
+# Date: Mar 6 2026
 #
 # Usage
 # -----

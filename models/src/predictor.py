@@ -1,20 +1,52 @@
+
+"""
+TTC Delay Predictor — Inference Engine 
+=======================================
+The single entry point for all ML predictions at runtime.
+
+Repo path: models/src/predictor.py
+Date: Mar 6.2026
+
+This module is the interface between the trained models and the rest of the system (chatbot backend or REST API). It:
+
+1. Loads trained model artifacts once at startup (not per request)
+2. Constructs the full feature vector from raw chatbot inputs
+3. Runs the two-stage prediction pipeline: Stage 1 -> Is a delay likely? (classification) Stage 2 -> If so, how long? (regression, only if delayed) 4. Returns a structured, serialisable result dict
+
+USAGE - as a Python module (imported by backend)
+-------------------------------------------------
+
+from predictor import DelayPredictor predictor = DelayPredictor() # loads models once at startup
+
+result = predictor.predict
+( line = "Line 1", station = "BLOOR STATION", hour = 17, day_of_week = 3, # 0=Monday, 6=Sunday is_weekend = 0, month = 3, week = 10, year = 2026, # code is optional - omit it and the predictor infers it )
+
+CONFIDENCE LEVELS
+-----------------
+high delay_probability >= 0.70 or <= 0.30
+medium delay_probability in [0.45, 0.70) or (0.30, 0.45]
+low delay_probability near 0.5 boundary
+
+DELAY THRESHOLD
+---------------
+Default threshold is 0.5. Lower to 0.40 to increase recall for commuter-facing alerts.
+"""
+
 from __future__ import annotations
+from registry import ModelRegistry
+from ph1_regression import build_feature_matrix as reg_build_features
+from ph1_regression import load_regressor
+from ph1_classification import load_classifier
+from ph1_classification import build_feature_matrix as clf_build_features
+from build_lookup import DEFAULT_OUT_PATH, RouteLookup
+import pandas as pd
+import numpy as np
+from typing import Any, Dict, Optional
+import logging
 
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import logging
-from typing import Any, Dict, Optional
-
-import numpy as np
-import pandas as pd
-
-from build_lookup import DEFAULT_OUT_PATH, RouteLookup
-from ph1_classification import build_feature_matrix as clf_build_features
-from ph1_classification import load_classifier
-from ph1_regression import load_regressor
-from ph1_regression import build_feature_matrix as reg_build_features
-from registry import ModelRegistry
 
 
 log = logging.getLogger(__name__)
@@ -183,6 +215,7 @@ class DelayPredictor:
 
 
 _predictor_instance = None
+
 
 def get_predictor(clf_version=None, reg_version=None, lookup_path=None):
     global _predictor_instance
