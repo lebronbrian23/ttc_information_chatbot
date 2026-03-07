@@ -1,0 +1,43 @@
+{
+    "version": "v20260305_185735",
+    "trained_at": "2026-03-05T18:57:35.344507",
+    "data_path": "/workspaces/ttc_information_chatbot/data/processing/cleaned_ttc_delay_data.csv",
+    "random_seed": 42,
+    "train_rows_total": 41647,
+    "train_rows_delayed": 14872,
+    "test_rows_total": 10412,
+    "test_rows_delayed": 3613,
+    "n_features": 730,
+    "target_column": "min_delay_capped",
+    "target_scope": "delayed rows only (min_delay_capped > 0)",
+    "categorical_columns": [
+        "Line",
+        "Station",
+        "Code"
+    ],
+    "train_delay_mean_minutes": 7.43,
+    "train_delay_median_minutes": 5.0,
+    "best_cv_mae_minutes": null,
+    "best_params": {
+        "boosting_type": "gbdt",
+        "class_weight": null,
+        "colsample_bytree": 1.0,
+        "importance_type": "split",
+        "learning_rate": 0.1,
+        "max_depth": -1,
+        "min_child_samples": 20,
+        "min_child_weight": 0.001,
+        "min_split_gain": 0.0,
+        "n_estimators": 100,
+        "n_jobs": -1,
+        "num_leaves": 31,
+        "objective": null,
+        "random_state": 42,
+        "reg_alpha": 0.0,
+        "reg_lambda": 0.0,
+        "subsample": 1.0,
+        "subsample_for_bin": 200000,
+        "subsample_freq": 0,
+        "verbose": -1
+    }
+}

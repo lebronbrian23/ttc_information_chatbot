@@ -1,0 +1,56 @@
+[
+    {
+        "model": "lightgbm_tuned",
+        "accuracy": 0.7761,
+        "precision": 0.6251,
+        "recall": 0.8865,
+        "f1_score": 0.7332,
+        "roc_auc": 0.8876,
+        "auc_pr": 0.7903
+    },
+    {
+        "model": "lightgbm_untuned",
+        "accuracy": 0.8095,
+        "precision": 0.7227,
+        "recall": 0.7321,
+        "f1_score": 0.7273,
+        "roc_auc": 0.8923,
+        "auc_pr": 0.8062
+    },
+    {
+        "model": "logistic_regression",
+        "accuracy": 0.8043,
+        "precision": 0.7326,
+        "recall": 0.6864,
+        "f1_score": 0.7088,
+        "roc_auc": 0.8861,
+        "auc_pr": 0.7871
+    },
+    {
+        "model": "random_forest",
+        "accuracy": 0.7377,
+        "precision": 0.5789,
+        "recall": 0.8957,
+        "f1_score": 0.7032,
+        "roc_auc": 0.8488,
+        "auc_pr": 0.7203
+    },
+    {
+        "model": "baseline_historical_rate",
+        "accuracy": 0.5384,
+        "precision": 0.3352,
+        "recall": 0.3357,
+        "f1_score": 0.3355,
+        "roc_auc": 0.4909,
+        "auc_pr": 0.4507
+    },
+    {
+        "model": "baseline_majority_class",
+        "accuracy": 0.653,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "roc_auc": 0.5,
+        "auc_pr": 0.6735
+    }
+]

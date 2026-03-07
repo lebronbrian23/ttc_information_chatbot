@@ -1,0 +1,24 @@
+{
+    "baseline_mean": {
+        "constant_value_minutes": 7.43,
+        "mae": 4.3554,
+        "rmse": 7.1195,
+        "r2": -0.0065
+    },
+    "baseline_median": {
+        "constant_value_minutes": 5.0,
+        "mae": 3.3958,
+        "rmse": 7.337,
+        "r2": -0.0689
+    },
+    "lightgbm_untuned": {
+        "mae": 3.8739,
+        "rmse": 6.5071,
+        "r2": 0.1592
+    },
+    "lightgbm_tuned": {
+        "mae": 3.8739,
+        "rmse": 6.5071,
+        "r2": 0.1592
+    }
+}
