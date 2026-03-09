@@ -1,0 +1,36 @@
+{
+    "version": "v20260307_055529",
+    "trained_at": "2026-03-07T05:55:29.931454",
+    "data_path": "/workspaces/ttc_information_chatbot/data/processing/cleaned_ttc_delay_data.csv",
+    "random_seed": 42,
+    "train_rows": 41647,
+    "test_rows": 10412,
+    "n_features": 730,
+    "target_column": "min_delay_capped",
+    "target_conversion": "binary: 1 if min_delay_capped > 0 else 0",
+    "categorical_columns": [
+        "Line",
+        "Station",
+        "Code"
+    ],
+    "train_delay_rate": 0.3571,
+    "test_delay_rate": 0.347,
+    "best_model": "lightgbm_tuned",
+    "best_cv_f1": 0.7262,
+    "best_test_f1": 0.7332,
+    "best_test_recall": 0.8865,
+    "best_test_precision": 0.6251,
+    "best_test_roc_auc": 0.8876,
+    "best_test_auc_pr": 0.7903,
+    "best_params": {
+        "colsample_bytree": "0.7114585856946446",
+        "learning_rate": "0.19165317719333075",
+        "max_depth": "5",
+        "min_child_samples": "21",
+        "n_estimators": "102",
+        "num_leaves": "63",
+        "reg_alpha": "0.22389158228654582",
+        "reg_lambda": "0.276446544535664",
+        "subsample": "0.8370786895517575"
+    }
+}

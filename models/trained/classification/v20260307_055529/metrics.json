@@ -1,0 +1,110 @@
+{
+    "baseline_majority_class": {
+        "accuracy": 0.653,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "confusion_matrix": [
+            [
+                6799,
+                0
+            ],
+            [
+                3613,
+                0
+            ]
+        ],
+        "roc_auc": 0.5,
+        "auc_pr": 0.6735
+    },
+    "baseline_historical_rate": {
+        "accuracy": 0.5384,
+        "precision": 0.3352,
+        "recall": 0.3357,
+        "f1_score": 0.3355,
+        "confusion_matrix": [
+            [
+                4393,
+                2406
+            ],
+            [
+                2400,
+                1213
+            ]
+        ],
+        "roc_auc": 0.4909,
+        "auc_pr": 0.4507
+    },
+    "logistic_regression": {
+        "accuracy": 0.8043,
+        "precision": 0.7326,
+        "recall": 0.6864,
+        "f1_score": 0.7088,
+        "confusion_matrix": [
+            [
+                5894,
+                905
+            ],
+            [
+                1133,
+                2480
+            ]
+        ],
+        "roc_auc": 0.8861,
+        "auc_pr": 0.7871
+    },
+    "random_forest": {
+        "accuracy": 0.7377,
+        "precision": 0.5789,
+        "recall": 0.8957,
+        "f1_score": 0.7032,
+        "confusion_matrix": [
+            [
+                4445,
+                2354
+            ],
+            [
+                377,
+                3236
+            ]
+        ],
+        "roc_auc": 0.8488,
+        "auc_pr": 0.7203
+    },
+    "lightgbm_untuned": {
+        "accuracy": 0.8095,
+        "precision": 0.7227,
+        "recall": 0.7321,
+        "f1_score": 0.7273,
+        "confusion_matrix": [
+            [
+                5784,
+                1015
+            ],
+            [
+                968,
+                2645
+            ]
+        ],
+        "roc_auc": 0.8923,
+        "auc_pr": 0.8062
+    },
+    "lightgbm_tuned": {
+        "accuracy": 0.7761,
+        "precision": 0.6251,
+        "recall": 0.8865,
+        "f1_score": 0.7332,
+        "confusion_matrix": [
+            [
+                4878,
+                1921
+            ],
+            [
+                410,
+                3203
+            ]
+        ],
+        "roc_auc": 0.8876,
+        "auc_pr": 0.7903
+    }
+}
