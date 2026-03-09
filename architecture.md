@@ -57,8 +57,8 @@ User types:  "Will Line 1 be delayed at Bloor around 5pm Thursday?"
 | `models/src/registry.py` | Manages active model versions |
 | `models/src/scheduler.py` | Automatic weekly retraining |
 | `models/src/notifier.py` | Webhooks on model promotion |
-| `main.py` | Application entry point (architecture scaffold) |
-| `nlp/handler.py` | NLP layer stub (for NLP teammate to implement) |
+| `main.py` | Application entry point (architecture scaffold-Backend teammate will add and take forward) |
+| `nlp/handler.py` | NLP layer stub (for NLP teammate to develop code and implement) |
 
 ---
 
@@ -96,10 +96,10 @@ User types:  "Will Line 1 be delayed at Bloor around 5pm Thursday?"
 | File | What it is |
 |---|---|
 | `main.py` | Start here. The app entry point. Read the docstring before anything else. |
-| `nlp/handler.py` | NLP teammate: this is your file. Full contract in the docstring. |
+| `nlp/handler.py` | NLP teammate's file. Full contract in the docstring. |
 | `models/src/predictor.py` | The ML engine. Call `get_predictor().predict()` to get a prediction. |
-| ML Interface Spec (Word doc) | Full input/output contract for the ML layer. Read before integrating. |
-| ML Implementation Guide (Word doc) | How to run the training pipeline and deploy the service. |
+| /docs/ml_interface_spec.md | Full input/output contract for the ML layer. For NLP & Backend Engineers to read before integrating. |
+| /docs/ml_pipeline_guide.md | How to run the training pipeline and deploy the service. |
 | `data/processing/route_stats.csv` | Valid station names are in the `Station` column of this file. |
 
 ---
@@ -150,7 +150,7 @@ The app starts and serves responses immediately even without the NLP layer imple
 | API authentication (none vs API key) | None for internal dev — add before public exposure |
 | Retraining schedule (weekly vs monthly) | Weekly Sunday 2am — see `scheduler_config.json` |
 
-> Full details on each decision are in **Section 8 of the ML Implementation Guide**.
+> Full details on each decision are in **Section 8 of the ML Pipeline Guide**.
 
 ---
 
