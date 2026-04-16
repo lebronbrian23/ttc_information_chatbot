@@ -64,3 +64,4 @@ models/trained/ml_service.pid
 !models/trained/webhook_subscribers.json
 !models/trained/scheduler_config.json
 !models/trained/model_registry.json
+.venv
