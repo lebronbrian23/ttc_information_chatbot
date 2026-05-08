@@ -129,14 +129,9 @@ def authenticate_user(username: str, password: str, db: DBSession) -> Optional[U
     
     if not verify_password(password, user.hashed_password):
         return None
-    
-    if not user.is_active:
-        return None
-    
-    # Update last login
-    user.last_login = datetime.now()
-    db.commit()
-    
+
+    # Account status checks are handled by the login route so we can
+    # return field-scoped vs form-scoped errors accurately.
     return user
 
 

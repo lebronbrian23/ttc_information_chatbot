@@ -4,13 +4,13 @@ Authentication routes for user registration, login, and token management.
 
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session as DBSession
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from backend.database import get_db
 from backend.auth import (
-    authenticate_user,
     create_access_token,
     hash_password,
+    verify_password,
     get_current_user,
     decode_token,
     setup_default_users,
@@ -53,15 +53,32 @@ async def register(
     - **password**: Min 8 chars, must contain uppercase, lowercase, digit, special char
     - **full_name**: Optional full name
     """
-    # Check if user already exists
-    existing_user = db.query(User).filter(
-        (User.username == request.username) | (User.email == request.email)
-    ).first()
-    
-    if existing_user:
+    # Check conflicts separately so frontend can place errors under the right fields
+    username_exists = db.query(User).filter(User.username == request.username).first()
+    email_exists = db.query(User).filter(User.email == request.email).first()
+
+    if username_exists or email_exists:
+        conflict_errors = []
+        if username_exists:
+            conflict_errors.append(
+                {
+                    "loc": ["body", "username"],
+                    "msg": "Username already registered",
+                    "type": "value_error.username_exists",
+                }
+            )
+        if email_exists:
+            conflict_errors.append(
+                {
+                    "loc": ["body", "email"],
+                    "msg": "Email already registered",
+                    "type": "value_error.email_exists",
+                }
+            )
+
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Username or email already registered",
+            detail=conflict_errors,
         )
     
     # Create new user
@@ -87,7 +104,7 @@ async def register(
     response_model=TokenResponse,
     responses={
         401: {"model": ErrorResponse, "description": "Invalid credentials"},
-        403: {"model": ErrorResponse, "description": "Account inactive"},
+        403: {"model": ErrorResponse, "description": "Account access restricted"},
     },
 )
 async def login(
@@ -102,22 +119,50 @@ async def login(
     
     Returns access token valid for 30 minutes.
     """
-    # Authenticate user
-    user = authenticate_user(request.username, request.password, db)
-    
+    user = db.query(User).filter(User.username == request.username).first()
+
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid username or password",
+            detail=[
+                {
+                    "loc": ["body", "username"],
+                    "msg": "Invalid username",
+                    "type": "value_error.invalid_username",
+                }
+            ],
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    if not verify_password(request.password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=[
+                {
+                    "loc": ["body", "password"],
+                    "msg": "Invalid password",
+                    "type": "value_error.invalid_password",
+                }
+            ],
             headers={"WWW-Authenticate": "Bearer"},
         )
     
     if not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Account is inactive",
+            detail=[
+                {
+                    "loc": ["body", "non_field_errors"],
+                    "msg": "Account is inactive",
+                    "type": "value_error.account_inactive",
+                }
+            ],
         )
-    
+
+    # Update last login only for successful active logins
+    user.last_login = datetime.now()
+    db.commit()
+
     # Create access token
     access_token = create_access_token(
         data={

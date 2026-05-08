@@ -57,7 +57,7 @@ class Message(Base):
     content = Column(Text, nullable=False)
     
     # Timestamp
-    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    created_at = Column(DateTime, default=datetime.now, index=True)
     
     # ML-related metadata (for bot messages)
     ml_used = Column(Boolean, default=False)  # Was ML predictor used?
@@ -147,7 +147,7 @@ class Permission(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = Column(String(255), unique=True, nullable=False, index=True)  # e.g., "chat:create", "sessions:read"
     description = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now)
 
     def to_dict(self):
         return {

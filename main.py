@@ -78,6 +78,25 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "models" / "src"))
 
+
+def load_local_env(env_path: Path) -> None:
+    """Load simple KEY=VALUE pairs from a local .env file if present."""
+    if not env_path.exists():
+        return
+
+    for raw_line in env_path.read_text().splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        os.environ.setdefault(key, value)
+
+
+load_local_env(ROOT / ".env")
+
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
@@ -93,7 +112,8 @@ log = logging.getLogger("main")
 # ---------------------------------------------------------------------------
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from sqlalchemy.orm import Session as DBSession
 
@@ -140,6 +160,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve React frontend from dist folder
+FRONTEND_DIST = ROOT / "frontend" / "dist"
+if FRONTEND_DIST.exists():
+    # Mount static assets (JS, CSS, images, etc.)
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIST / "assets"), name="assets")
 
 # Include backend routes (session/message management, database endpoints)
 from backend.routes import router as backend_router
@@ -242,57 +268,19 @@ class DirectPredictRequest(BaseModel):
 # Routes
 # ---------------------------------------------------------------------------
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/", response_class=FileResponse)
 async def root():
     """
-    Serves a minimal chat UI for development/testing.
-    Backend teammate: replace this with your proper frontend.
+    Serves the React frontend (built with Vite).
     """
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>TTC Delay Chatbot</title>
-        <style>
-            body { font-family: Arial, sans-serif; max-width: 600px;
-                   margin: 40px auto; padding: 20px; }
-            #chat { border: 1px solid #ccc; height: 400px;
-                    overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
-            .user { color: #0066cc; margin: 8px 0; }
-            .bot  { color: #333;    margin: 8px 0; }
-            input { width: 80%; padding: 8px; }
-            button { padding: 8px 16px; }
-        </style>
-    </head>
-    <body>
-        <h2>TTC Delay Prediction Chatbot</h2>
-        <p><em>Development UI - replace with production frontend</em></p>
-        <div id="chat"></div>
-        <input id="msg" type="text"
-               placeholder="Ask about TTC delays e.g. Will Line 1 be delayed at 5pm?"
-               onkeydown="if(event.key==='Enter') send()"/>
-        <button onclick="send()">Send</button>
-        <script>
-            async function send() {
-                const input = document.getElementById('msg');
-                const chat  = document.getElementById('chat');
-                const msg   = input.value.trim();
-                if (!msg) return;
-                chat.innerHTML += '<p class="user">You: ' + msg + '</p>';
-                input.value = '';
-                const res = await fetch('/chat', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({message: msg, session_id: 'browser'})
-                });
-                const data = await res.json();
-                chat.innerHTML += '<p class="bot">Bot: ' + data.response + '</p>';
-                chat.scrollTop = chat.scrollHeight;
-            }
-        </script>
-    </body>
-    </html>
-    """
+    frontend_index = ROOT / "frontend" / "dist" / "index.html"
+    if frontend_index.exists():
+        return frontend_index
+    else:
+        return FileResponse(
+            path=ROOT / "frontend" / "dist" / "index.html",
+            status_code=200,
+        )
 
 
 @app.post("/chat", response_model=ChatResponse)
@@ -462,6 +450,20 @@ async def health():
         "nlp_layer": {"status": nlp_status},
         "version": "1.0.0",
     }
+
+
+@app.get("/{full_path:path}", response_class=FileResponse)
+async def spa_fallback(full_path: str):
+    """
+    Catch-all route for SPA (Single Page Application).
+    Serves index.html for any route not matched by API endpoints.
+    This allows React Router to handle client-side navigation.
+    """
+    frontend_index = ROOT / "frontend" / "dist" / "index.html"
+    if frontend_index.exists():
+        return frontend_index
+    else:
+        raise HTTPException(status_code=404, detail="Frontend not built. Run: cd frontend && npm run build")
 
 
 # ---------------------------------------------------------------------------
