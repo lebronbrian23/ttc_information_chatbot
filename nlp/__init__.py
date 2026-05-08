@@ -1,1 +1,1 @@
-NLP Package
+"""NLP Package - Natural Language Processing layer for TTC chatbot."""

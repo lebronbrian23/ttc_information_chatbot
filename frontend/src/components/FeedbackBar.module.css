@@ -1,0 +1,36 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  background: #fafbfc;
+  border-top: 1px solid #eaeaea;
+  font-size: 0.85rem;
+}
+
+.label {
+  color: #666;
+  margin-right: 0.2rem;
+}
+
+.star {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: #ccc;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.1s, transform 0.1s;
+}
+
+.star:hover,
+.filled {
+  color: #e6a817;
+  transform: scale(1.15);
+}
+
+.thanks {
+  color: #2a7a3b;
+  font-weight: 500;
+}

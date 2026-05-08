@@ -1,0 +1,367 @@
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #003471 0%, #e31937 100%);
+  padding: 2rem 1rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: #003471;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.backButton:hover {
+  background: #f0f0f0;
+}
+
+.header h1 {
+  color: #003471;
+  font-size: 1.75rem;
+  margin: 0;
+  flex: 1;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  color: #003471;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #e31937;
+  padding-left: 0.75rem;
+}
+
+/* Info Grid */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.infoField {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.infoField label {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.infoValue {
+  margin: 0;
+  color: #003471;
+  font-size: 1.1rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* Editable Field */
+.editableField {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.editableDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.editableDisplay p {
+  margin: 0;
+  color: #333;
+  font-size: 1.05rem;
+  flex: 1;
+}
+
+.editButton {
+  background: #003471;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.editButton:hover {
+  background: #00266e;
+}
+
+/* Edit Form */
+.editForm {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.label {
+  display: block;
+  margin-bottom: 1.25rem;
+}
+
+.label label {
+  display: block;
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #003471;
+  box-shadow: 0 0 0 3px rgba(0, 52, 113, 0.1);
+}
+
+.inputError {
+  border-color: #e31937;
+  background: rgba(227, 25, 55, 0.05);
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(227, 25, 55, 0.1);
+}
+
+.fieldError {
+  color: #e31937;
+  font-size: 0.85rem;
+  margin: 0.4rem 0 0 0;
+}
+
+.passwordField {
+  position: relative;
+}
+
+.passwordField input {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+
+.toggleButton {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.2s;
+}
+
+.toggleButton:hover {
+  color: #003471;
+}
+
+.passwordRules {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #e31937;
+}
+
+.passwordRules p {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.passwordRules ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.passwordRules li {
+  color: #999;
+  font-size: 0.9rem;
+  padding: 0.25rem 0;
+  transition: color 0.2s;
+}
+
+.ruleMet {
+  color: #28a745;
+  font-weight: 600;
+}
+
+/* Password Form */
+.passwordForm {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+/* Buttons */
+.primaryButton,
+.secondaryButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.primaryButton {
+  background: #003471;
+  color: white;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #00266e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 52, 113, 0.3);
+}
+
+.primaryButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.secondaryButton {
+  background: #e9ecef;
+  color: #333;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: #dee2e6;
+}
+
+.secondaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.buttonGroup button {
+  flex: 1;
+}
+
+/* Alerts */
+.successBanner {
+  background: #d4edda;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #28a745;
+  font-weight: 500;
+}
+
+.errorBanner {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #e31937;
+  font-weight: 500;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .editableDisplay {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .editButton {
+    width: 100%;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .buttonGroup button {
+    width: 100%;
+  }
+}
